@@ -22,8 +22,8 @@
 
 1. 克隆项目：
 ```bash
-git clone <repository-url>
-cd multi-chain-wallet-generator
+git clone https://github.com/Harukite/wallets-generate.git
+cd wallets-generate
 ```
 
 2. 安装依赖：
