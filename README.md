@@ -7,9 +7,9 @@
 ## 功能特点
 
 - 支持多种主流区块链：
-  - 比特币 (BTC)
-  - 以太坊 (ETH)
-  - 索拉纳 (SOL)
+  - Bitcoin (BTC)
+  - Ethereum (ETH)
+  - Solana (SOL)
   - SUI
   - TON
 - 支持批量生成钱包
