@@ -226,34 +226,57 @@ class MultiChainWalletGenerator {
   }
 
   /**
-   * 将钱包信息保存到文件
+   * 将钱包信息保存到不同文件
    * @param {Array<Object>} wallets - 钱包信息数组
    * @param {Array<string>} chains - 链类型数组
    */
-  static saveWalletsToFile(wallets, chains) {
+  static saveWalletsToFiles(wallets, chains) {
     try {
-      let content = "";
+      let addressContent = "";
+      let privateKeyContent = "";
+      let mnemonicContent = "";
 
       // 为每条链创建单独的部分
       chains.forEach((chain) => {
-        content += `\n=============== ${chain} Wallets ===============\n\n`;
-        wallets.forEach((walletGroup, index) => {
+        // 地址文件内容
+        addressContent += `\n=============== ${chain} Addresses ===============\n\n`;
+        wallets.forEach((walletGroup) => {
           const wallet = walletGroup[chain];
-          content += `Wallet #${index + 1}:\n`;
-          content += `Address: ${wallet.address}\n`;
-          content += `Private Key: ${wallet.privateKey}\n`;
-          if (wallet.publicKey) {
-            content += `Public Key: ${wallet.publicKey}\n`;
-          }
-          if (wallet.mnemonic) {
-            content += `Mnemonic: ${wallet.mnemonic}\n`;
-          }
-          content += "\n";
+          addressContent += `${wallet.address}\n`;
         });
+
+        // 私钥文件内容
+        privateKeyContent += `\n=============== ${chain} Private Keys ===============\n\n`;
+        wallets.forEach((walletGroup) => {
+          const wallet = walletGroup[chain];
+          privateKeyContent += `${wallet.privateKey}\n`;
+        });
+
+        // 助记词文件内容（如果有）
+        if (wallets.some((w) => w[chain].mnemonic)) {
+          mnemonicContent += `\n=============== ${chain} Mnemonics ===============\n\n`;
+          wallets.forEach((walletGroup) => {
+            const wallet = walletGroup[chain];
+            if (wallet.mnemonic) {
+              mnemonicContent += `${wallet.mnemonic}\n`;
+            }
+          });
+        }
       });
 
-      fs.writeFileSync("wallets.txt", content);
-      console.log("钱包信息已保存到 wallets.txt");
+      // 保存到不同文件
+      fs.writeFileSync("wallets.txt", addressContent);
+      fs.writeFileSync("private_keys.txt", privateKeyContent);
+      if (mnemonicContent) {
+        fs.writeFileSync("mnemonic.txt", mnemonicContent);
+      }
+
+      console.log("钱包信息已保存到以下文件：");
+      console.log("- wallets.txt (地址)");
+      console.log("- private_keys.txt (私钥)");
+      if (mnemonicContent) {
+        console.log("- mnemonic.txt (助记词)");
+      }
     } catch (error) {
       console.error("保存钱包信息失败:", error);
     }
@@ -326,8 +349,8 @@ async function main() {
       chains
     );
 
-    // 保存到文件
-    MultiChainWalletGenerator.saveWalletsToFile(wallets, chains);
+    // 保存到不同文件
+    MultiChainWalletGenerator.saveWalletsToFiles(wallets, chains);
 
     console.log("\n钱包生成完成！");
   } catch (error) {
