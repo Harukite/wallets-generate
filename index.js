@@ -368,8 +368,6 @@ class MultiChainWalletGenerator {
       const mnemonic = this.generateMnemonic();
       let hasError = false;
 
-      console.log(chalk.cyan(`生成钱包组 #${i + 1}/${count}`));
-
       for (const chain of chains) {
         try {
           switch (chain.toUpperCase()) {
@@ -379,31 +377,21 @@ class MultiChainWalletGenerator {
                 "mainnet",
                 options.btcAddressType
               );
-              console.log(
-                chalk.green(`✓ BTC 钱包生成成功 (${options.btcAddressType})`)
-              );
               break;
             case "ETH":
               walletGroup.ETH = this.generateEthereumWallet(mnemonic);
-              console.log(chalk.green(`✓ ETH 钱包生成成功`));
               break;
             case "SOL":
               walletGroup.SOL = this.generateSolanaWallet();
-              console.log(chalk.green(`✓ SOL 钱包生成成功`));
               break;
             case "SUI":
               walletGroup.SUI = this.generateSuiWallet();
-              console.log(chalk.green(`✓ SUI 钱包生成成功`));
               break;
             case "BNB":
               walletGroup.BNB = this.generateBnbWallet(mnemonic);
-              console.log(chalk.green(`✓ BNB 钱包生成成功`));
               break;
           }
         } catch (error) {
-          console.error(
-            chalk.red(`✗ 生成 ${chain} 钱包失败: ${error.message}`)
-          );
           hasError = true;
           // 记录错误但继续处理其他链
           walletGroup[chain] = {

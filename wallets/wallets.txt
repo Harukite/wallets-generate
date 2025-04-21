@@ -1,21 +1,13 @@
 
 =============== BTC Addresses ===============
 
-bc1p270w0duup0dkahsmgeajpvh2rykza9y08xvyc7900w9snfvxeynq8lrchl
-
-=============== ETH Addresses ===============
-
-0x692bC55fE29aF0Dd6B696F793c96c2bbA88d8BfA
-0x64abbdb42fe38e9d38bc88798a876ff89ed0e562
-
-=============== SOL Addresses ===============
-
-2prrk3aKAwPgn5mBtKhYmEwnxNyDYAz7nJqyeWMugYaw
-
-=============== SUI Addresses ===============
-
-0xa772bd26f2b55f211f88c911ad6b2a6fea3aabd206795548cf9882a292314da4
-
-=============== BNB Addresses ===============
-
-0x692bC55fE29aF0Dd6B696F793c96c2bbA88d8BfA
+bc1p2jlsxtvv84kj7gd8mnz9cklgnld2y6zrqz5us3lqf8wdn2vp2peszs5axd
+bc1pptxj8j8cly7vl9va6n8ffwxn942yt2ptumm7yupgmhznjuuetl3qz5lsfu
+bc1pqj2q6aqc3747q9hxe4q3p78vqc4rsu99an8mp9c30qspp7nur3ts64kfly
+bc1pkl83pw403g3rz6cy2s89s7gfcg92s06qz0e72cy4hqfpk5smrs8serp5ee
+bc1pjhcugpv6muu69vl3zqrc849asqqqlep52srvnkhkwrdu4uay0glsdmnc33
+bc1pafc35w9yqhnpgrpth3rrsqntvrgwr74e6s74yjfd27agzt7689rswe98gr
+bc1plq9vtmspsxu8h62zt37r88cek0r3kx7pmued55psk9lw04t94efqmze760
+bc1p9qw8lgxu58nc6rf4j0kt5s0mgpnger4nv4s8088ymfsf7y63cvssp2xyte
+bc1pz0ndsyphgv3q4htzmf9r8qu6a5xvamsyz6hc7exaank3hjndmcss2wavcq
+bc1ptv76eu4pml4ztm9hhp74a64d920q445qn9nl65e98ssm5r5tvm3sz3m0r0
