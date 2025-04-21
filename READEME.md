@@ -18,10 +18,6 @@
 - 支持助记词导入（部分链）
 - 支持SUI私钥导入
 - 友好的错误处理与日志输出
-- 支持多链钱包地址验证
-- 支持批量验证钱包地址
-- 支持不同网络环境验证（主网/测试网）
-- 支持验证结果保存到文件
 
 ## 安装
 
@@ -40,21 +36,9 @@ npm install
 
 ### 命令行使用
 
-有多种方式运行程序：
-
+运行程序：
 ```bash
-# 原始方式（可能显示弃用警告）
 node index.js
-
-# 使用启动脚本（设置环境变量禁用警告）
-node start.js
-
-# 推荐方式（使用 --no-warnings 参数禁用所有警告）
-node --no-warnings start.js
-
-# 或使用 npm 脚本
-npm start           # 使用环境变量禁用警告
-npm run start:no-warnings  # 使用命令行参数禁用警告
 ```
 
 按照交互提示操作：
@@ -69,6 +53,7 @@ npm run start:no-warnings  # 使用命令行参数禁用警告
  ◯ Ethereum (ETH)
 ❯◯ Solana (SOL)
  ◯ SUI
+ ◯ TON
  ◯ BNB Chain (BNB)
 
 ? 请输入要生成的钱包数量: _
@@ -117,12 +102,6 @@ word1 word2 word3...
 word1 word2 word3...
 ```
 
-特点：
-- 每个文件按链类型分类
-- 每行一个信息，方便复制使用
-- 私钥单独保存，便于安全管理
-- 助记词单独保存，仅在有助记词时生成文件
-
 ### 作为模块使用
 
 ```javascript
@@ -150,89 +129,72 @@ const importedWallets = await MultiChainWalletGenerator.importWalletFromMnemonic
 );
 
 // 从私钥导入SUI钱包
-const suiWallet = MultiChainWalletGenerator.importSuiWallet(privateKeyInSuiprivkeyFormat);
+const suiWallet = MultiChainWalletGenerator.importSuiWallet(privateKeyBase64);
 ```
 
-### 钱包地址验证
+## API 文档
 
-项目提供了多种钱包地址验证工具：
+### MultiChainWalletGenerator 类
 
-1. 单链地址验证：
-```bash
-node test/test-addresses.js --chain ETH --address 0x...
+#### 钱包生成方法
+
+```javascript
+// 生成助记词
+static generateMnemonic(strength = 256)
+
+// 生成以太坊钱包
+static generateEthereumWallet(mnemonic = null)
+
+// 生成比特币钱包
+static generateBitcoinWallet(mnemonic = null, network = 'mainnet')
+
+// 生成Solana钱包
+static generateSolanaWallet()
+
+// 生成SUI钱包
+static generateSuiWallet()
+
+// 生成TON钱包
+static async generateTonWallet()
+
+// 生成BNB链钱包
+static generateBnbWallet(mnemonic = null)
+
+// 批量生成多链钱包
+static async generateMultipleWallets(count = 1, chains = ["BTC", "ETH", "SOL", "SUI", "TON", "BNB"])
 ```
 
-2. 批量验证地址：
-```bash
-node test/test-addresses.js --batch --chain ETH --file addresses.txt
+#### 钱包导入方法
+
+```javascript
+// 从私钥导入SUI钱包
+static importSuiWallet(privateKey)
+
+// 从助记词导入多链钱包
+static async importWalletFromMnemonic(mnemonic, chains)
 ```
 
-3. 多链批量验证：
-```bash
-node test/test-multi-chain.js --file multi-chain-addresses.txt
+#### 其他工具方法
+
+```javascript
+// 验证钱包地址
+static validateAddress(address, chain)
+
+// 保存钱包信息到文件
+static saveWalletsToFiles(wallets, chains)
 ```
 
-4. 钱包文件验证：
-```bash
-node test/validate-wallets.js --wallet-file wallets.txt
+### 数据结构
+
+#### 钱包信息对象
+```typescript
+interface WalletInfo {
+    address: string;      // 钱包地址
+    privateKey: string;   // 私钥
+    publicKey?: string;   // 公钥（某些链需要）
+    mnemonic?: string;    // 助记词（如果是从助记词生成）
+}
 ```
-
-验证功能支持：
-- 验证地址格式有效性
-- 验证地址在指定网络上的余额
-- 支持主网和测试网验证
-- 支持批量验证结果统计
-- 验证结果可保存到文件
-- 支持自定义网络配置
-
-### 网络配置
-
-验证工具支持多种网络环境：
-
-- ETH: mainnet, goerli, sepolia
-- BNB: mainnet, testnet
-- BTC: mainnet, testnet
-- SOL: mainnet, testnet, devnet
-- SUI: mainnet, testnet, devnet
-
-可以通过 `--network` 参数指定网络类型：
-```bash
-node test/test-addresses.js --chain ETH --address 0x... --network mainnet
-```
-
-### 验证结果输出
-
-验证结果会显示：
-- 地址有效性
-- 网络类型
-- 地址余额
-- 错误信息（如果有）
-
-示例输出：
-```
-✓ 有效 (mainnet)
-地址: 0x123... 余额: 0.1
-```
-
-## 常见问题
-
-### 关于弃用警告
-在某些 Node.js 环境中可能会显示如下警告：
-```
-[DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-```
-
-这是由某些依赖包内部使用了已弃用的 `punycode` 模块导致的，对程序功能没有影响。可以使用以下方法禁用此警告：
-
-1. 使用 `--no-warnings` 参数运行：
-   ```bash
-   node --no-warnings start.js
-   ```
-
-2. 或使用提供的 npm 脚本：
-   ```bash
-   npm run start:no-warnings
-   ```
 
 ## 注意事项
 
@@ -252,13 +214,13 @@ node test/test-addresses.js --chain ETH --address 0x... --network mainnet
    - ETH 和 BNB 钱包使用相同的生成逻辑，地址也相同
    - SOL、SUI 和 TON 目前不支持从助记词导入
    - BTC、ETH 和 BNB 支持助记词导入
-   - SUI 私钥使用 suiprivkey 格式，可直接导入到 SUI 钱包
+   - 代码已针对库的最新版本进行优化
 
 ## 依赖说明
 
 - ethers: 以太坊开发工具包
 - @solana/web3.js: Solana 开发工具包
-- @mysten/sui: SUI 开发工具包
+- @mysten/sui.js: SUI 开发工具包
 - bitcoinjs-lib: 比特币开发工具包
 - ecpair: 比特币密钥对处理
 - bip39: 助记词生成和处理

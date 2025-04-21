@@ -1,0 +1,20 @@
+
+=============== BTC Private Keys ===============
+
+KwgKywwb2SB2ndxByGSnQNS6guToPzn5CZNgbNjxPvjfg8joQHv9
+
+=============== ETH Private Keys ===============
+
+0x8e1f3add91064f4a8410ae88476c8998d125f6d4decaa9fb061e6858a06d6563
+
+=============== SOL Private Keys ===============
+
+4y5DPFCm7ZrJBadUtoJhcxPSFtQ7Ga3iECvWAkJ9EtLivbsejtUKLoJUJAyBda9g9h2ctSZc8Ji4yamxcoYBSzD1
+
+=============== SUI Private Keys ===============
+
+suiprivkey1qzaj3k9uzmagfazk9ukghq3p3ypd2crxk40ywntnlr7clsj92tqxctmmu8k
+
+=============== BNB Private Keys ===============
+
+0x8e1f3add91064f4a8410ae88476c8998d125f6d4decaa9fb061e6858a06d6563
