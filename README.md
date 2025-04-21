@@ -27,8 +27,8 @@
 
 1. 克隆项目：
 ```bash
-git clone <repository-url>
-cd multi-chain-wallet-generator
+git clone https://github.com/Harukite/wallets-generate.git
+cd wallets-generate
 ```
 
 2. 安装依赖：
@@ -43,18 +43,12 @@ npm install
 有多种方式运行程序：
 
 ```bash
-# 原始方式（可能显示弃用警告）
-node index.js
 
 # 使用启动脚本（设置环境变量禁用警告）
 node start.js
 
-# 推荐方式（使用 --no-warnings 参数禁用所有警告）
-node --no-warnings start.js
-
-# 或使用 npm 脚本
-npm start           # 使用环境变量禁用警告
-npm run start:no-warnings  # 使用命令行参数禁用警告
+# 推荐方式
+npm run start     
 ```
 
 按照交互提示操作：
@@ -159,22 +153,9 @@ const suiWallet = MultiChainWalletGenerator.importSuiWallet(privateKeyInSuiprivk
 
 1. 单链地址验证：
 ```bash
-node test/test-addresses.js --chain ETH --address 0x...
-```
 
-2. 批量验证地址：
-```bash
-node test/test-addresses.js --batch --chain ETH --file addresses.txt
-```
+npm run verify
 
-3. 多链批量验证：
-```bash
-node test/test-multi-chain.js --file multi-chain-addresses.txt
-```
-
-4. 钱包文件验证：
-```bash
-node test/validate-wallets.js --wallet-file wallets.txt
 ```
 
 验证功能支持：
@@ -215,24 +196,6 @@ node test/test-addresses.js --chain ETH --address 0x... --network mainnet
 ```
 
 ## 常见问题
-
-### 关于弃用警告
-在某些 Node.js 环境中可能会显示如下警告：
-```
-[DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-```
-
-这是由某些依赖包内部使用了已弃用的 `punycode` 模块导致的，对程序功能没有影响。可以使用以下方法禁用此警告：
-
-1. 使用 `--no-warnings` 参数运行：
-   ```bash
-   node --no-warnings start.js
-   ```
-
-2. 或使用提供的 npm 脚本：
-   ```bash
-   npm run start:no-warnings
-   ```
 
 ## 注意事项
 
